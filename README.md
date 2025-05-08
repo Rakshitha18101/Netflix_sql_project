@@ -16,7 +16,7 @@ Dataset Link: The data for this project is sourced from the Kaggle dataset:
 
 Dataset Link: [https://www.kaggle.com/datasets/shivamb/netflix-shows/data]
 
-```
+```sql
 DROP TABLE IF EXISTS netflix;
 CREATE TABLE netflix
 (
@@ -37,7 +37,7 @@ CREATE TABLE netflix
 
 Business Problems and Solutions
 1. Count the Number of Movies vs TV Shows
-```
+```sql
 SELECT 
     type,
     COUNT(*)
@@ -47,7 +47,7 @@ GROUP BY 1;
 Objective: Determine the distribution of content types on Netflix.
 
 2. Find the Most Common Rating for Movies and TV Shows
-```
+```sql
 WITH RatingCounts AS (
     SELECT 
         type,
@@ -73,7 +73,7 @@ WHERE rank = 1;
 Objective: Identify the most frequently occurring rating for each type of content.
 
 3. List All Movies Released in a Specific Year (e.g., 2020)
-```
+```sql
 SELECT * 
 FROM netflix
 WHERE release_year = 2020;
@@ -81,7 +81,7 @@ WHERE release_year = 2020;
 Objective: Retrieve all movies released in a specific year.
 
 4. Find the Top 5 Countries with the Most Content on Netflix
-```
+```sql
 SELECT * 
 FROM
 (
@@ -98,7 +98,7 @@ LIMIT 5;
 Objective: Identify the top 5 countries with the highest number of content items.
 
 5. Identify the Longest Movie
-```
+```sql
 SELECT 
     *
 FROM netflix
@@ -108,7 +108,7 @@ ORDER BY SPLIT_PART(duration, ' ', 1)::INT DESC;
 Objective: Find the movie with the longest duration.
 
 6. Find Content Added in the Last 5 Years
-```
+```sql
 SELECT *
 FROM netflix
 WHERE TO_DATE(date_added, 'Month DD, YYYY') >= CURRENT_DATE - INTERVAL '5 years';
@@ -116,7 +116,7 @@ WHERE TO_DATE(date_added, 'Month DD, YYYY') >= CURRENT_DATE - INTERVAL '5 years'
 Objective: Retrieve content added to Netflix in the last 5 years.
 
 7. Find All Movies/TV Shows by Director 'Rajiv Chilaka'
-```
+```sql
 SELECT *
 FROM (
     SELECT 
@@ -129,7 +129,7 @@ WHERE director_name = 'Rajiv Chilaka';
 Objective: List all content directed by 'Rajiv Chilaka'.
 
 8. List All TV Shows with More Than 5 Seasons
-```
+```sql
 SELECT *
 FROM netflix
 WHERE type = 'TV Show'
@@ -138,7 +138,7 @@ WHERE type = 'TV Show'
 Objective: Identify TV shows with more than 5 seasons.
 
 9. Count the Number of Content Items in Each Genre
-```
+```sql
 SELECT 
     UNNEST(STRING_TO_ARRAY(listed_in, ',')) AS genre,
     COUNT(*) AS total_content
@@ -149,7 +149,7 @@ Objective: Count the number of content items in each genre.
 
 10.Find each year and the average numbers of content release in India on netflix.
 return top 5 year with highest avg content release!
-```
+```sql
 SELECT 
     country,
     release_year,
@@ -167,7 +167,7 @@ LIMIT 5;
 Objective: Calculate and rank years by the average number of content releases by India.
 
 11. List All Movies that are Documentaries
-```
+```sql
 SELECT * 
 FROM netflix
 WHERE listed_in LIKE '%Documentaries';
@@ -175,7 +175,7 @@ WHERE listed_in LIKE '%Documentaries';
 Objective: Retrieve all movies classified as documentaries.
 
 12. Find All Content Without a Director
-```
+```sql
 SELECT * 
 FROM netflix
 WHERE director IS NULL;
@@ -183,7 +183,7 @@ WHERE director IS NULL;
 Objective: List content that does not have a director.
 
 13. Find How Many Movies Actor 'Salman Khan' Appeared in the Last 10 Years
-```
+```sql
 SELECT * 
 FROM netflix
 WHERE casts LIKE '%Salman Khan%'
@@ -192,7 +192,7 @@ WHERE casts LIKE '%Salman Khan%'
 Objective: Count the number of movies featuring 'Salman Khan' in the last 10 years.
 
 14. Find the Top 10 Actors Who Have Appeared in the Highest Number of Movies Produced in India
-```
+```sql
 SELECT 
     UNNEST(STRING_TO_ARRAY(casts, ',')) AS actor,
     COUNT(*)
@@ -205,7 +205,7 @@ LIMIT 10;
 Objective: Identify the top 10 actors with the most appearances in Indian-produced movies.
 
 15. Categorize Content Based on the Presence of 'Kill' and 'Violence' Keywords
-```
+```sql
 SELECT 
     category,
     COUNT(*) AS content_count
